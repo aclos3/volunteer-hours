@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
-import {Plugins} from '@capacitor/core';
 import DataProps from '../components/DataProps';
 import {useDocument} from "react-firebase-hooks/firestore";
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
     IonInput, IonItem, IonLabel, IonList, IonButton, IonDatetime } from '@ionic/react';
-import { Controller, useForm } from 'react-hook-form';
 import './DataInput.css';
 
-
-//interface TextEntryProps {
-//    onSubmit: (homeName: string, homeHours: number, homeDate: string) => void;
-//}
 export function debugInfo(logInfo: DataProps){
     console.log(logInfo.name,logInfo.hours,logInfo.date);
 };
@@ -22,17 +16,16 @@ export function clearInfo(info: DataProps){
     info.date='';
 };
 
-
 const todaysDate = () => {
     var today = new Date();
     var editDate = today.toDateString(); 
     const splitDate = editDate.split(' ');
     var numMon = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(splitDate[1]) / 3 + 1;
     if(numMon < 10) {
-        return(splitDate[3] + "-" + splitDate[2] + "-0" + numMon);
+        return(splitDate[3] + "-0" + numMon + "-" + splitDate[2]);
     }
     else {
-        return(splitDate[3] + "-" + splitDate[2] + "-" + numMon);
+        return(splitDate[3] + "-" + numMon + "-" + splitDate[2]);
     }
 };
 
@@ -67,7 +60,7 @@ const DataInput: React.FC<DataProps> = (props) => {
         }
 
         if(props.name) {
-            //console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+            console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
             await(collectionRef).doc(props.name).set({name: item.name, hours: item.hours, date: item.date,
                 createdOn: new Date().getTime(),}, {merge:true});
             clearInfo(item);
@@ -75,7 +68,7 @@ const DataInput: React.FC<DataProps> = (props) => {
                 props.clear();
         }
         else {
-            //console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+            console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
             await collectionRef.add({name: item.name, hours: item.hours, date: item.date, 
                 createdOn: new Date().getTime(),
                 });
@@ -83,18 +76,16 @@ const DataInput: React.FC<DataProps> = (props) => {
             setItem(item);
             props.clear();
         }
-
     };
     
-      const updateField = (e: any) => {
+    const updateField = (e: any) => {
         e.preventDefault();
-        //console.log(item.name,item.hours,item.date);
         debugInfo(item);
         setItem({
           ...item,
           [e.target.name]: e.target.value
         });
-      };
+    };
     
     return (
         <IonPage>

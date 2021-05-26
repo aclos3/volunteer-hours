@@ -1,13 +1,22 @@
 import React, {useState} from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './ViewData.css';
-import firebase from 'firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
+import DataList from '../components/dataList';
 
 const ViewData: React.FC = () => {
     const [current, setCurrent] = useState(null);
-    
+    const getEmpty=()=>{
+        return ({
+          title: '',
+          content: '',
+          date: '',
+          location: '',
+          picture: '',
+          clear:'',
+          initialValue:''
+        });
+    }
+
     return (
     <IonPage>
       <IonHeader>
@@ -21,7 +30,7 @@ const ViewData: React.FC = () => {
             <IonTitle size="large">View Data</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="View Data Page" />
+        <DataList doEdit={setCurrent}></DataList>
       </IonContent>
     </IonPage>
   );

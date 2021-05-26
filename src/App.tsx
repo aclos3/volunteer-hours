@@ -46,23 +46,7 @@ const App: React.FC = () => {
         initialValue:''
         });
     }
-    const onEntry = (newName: string, newHours: number, newDate: string) => {
-        
-        if(newName) {
-            if(newDate.charAt(0) <='9' && newDate.charAt(0) >= '0') {
-                const loseTime = newDate.split('T');
-                console.log("Data Output: Name: " + newName + ", Hours: " + newHours + ", Date: " + loseTime[0] );
-            }
-            else {
-                const words = newDate.split(' ');
-                var numMon = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(words[1]) / 3 + 1;
-                console.log(words[3] + "-" + words[2] + "-" + numMon);
-            }
-        }
-        else {
-            alert("Name Field")
-        }
-    }
+    
     return (
         <IonApp>
             <IonReactRouter>
