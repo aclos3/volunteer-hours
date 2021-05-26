@@ -1,0 +1,7 @@
+{
+  "name": "volunteer-hours",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

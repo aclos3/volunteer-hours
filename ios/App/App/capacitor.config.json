@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "volunteer-hours",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
