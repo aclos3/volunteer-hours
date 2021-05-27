@@ -66,7 +66,7 @@ const DataInput: React.FC<DataProps> = (props) => {
             }
 
             if(props.name) {
-                console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+                //console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
                 await(collectionRef).doc(props.name).set({name: item.name, hours: item.hours, date: item.date,
                     createdOn: new Date().getTime(),}, {merge:true});
                 clearInfo(item);
@@ -74,7 +74,7 @@ const DataInput: React.FC<DataProps> = (props) => {
                     props.clear();
             }
             else {
-                console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+                //console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
                 await collectionRef.add({name: item.name, hours: item.hours, date: item.date, 
                     createdOn: new Date().getTime(),
                     });

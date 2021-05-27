@@ -26,7 +26,6 @@ const DataList: React.FC<Props> = ({doEdit}) => {
         <IonList id="list">
             {value && 
             value.docs.map(doc => {
-                console.log("hi");
                 return (
                     !loading && (
                         <Item doc={doc}

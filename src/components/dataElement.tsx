@@ -10,7 +10,7 @@ interface Props {
 
 const Item: React.FC<Props> = ({doDelete, doc}) => {
     let data = doc.data();
-
+    console.log("Data: " + data.name);
     return (
         <IonItemSliding>
             <IonItem>
