@@ -49,32 +49,39 @@ const DataInput: React.FC<DataProps> = (props) => {
     [loading, props.initialValue, value]);
     
     const getValid = async () => {
-
-        let collectionRef = firebase.firestore().collection("data");
-        if(!item.date) {
-            item.date = todaysDate();
+        if(!item.name || item.hours === 0 || !item.hours) {
+            alert("Name and hours cannot be blank.")
         }
-        else {
-            const newDate = item.date.split('T');
-            item.date = newDate[0];
+        else if(item.hours < 0) {
+            alert("Hours cannot be negative.")
         }
+        else {       
+            let collectionRef = firebase.firestore().collection("data");
+            if(!item.date) {
+                item.date = todaysDate();
+            }
+            else {
+                const newDate = item.date.split('T');
+                item.date = newDate[0];
+            }
 
-        if(props.name) {
-            console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
-            await(collectionRef).doc(props.name).set({name: item.name, hours: item.hours, date: item.date,
-                createdOn: new Date().getTime(),}, {merge:true});
-            clearInfo(item);
-            setItem(item);
+            if(props.name) {
+                console.log("Name populated! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+                await(collectionRef).doc(props.name).set({name: item.name, hours: item.hours, date: item.date,
+                    createdOn: new Date().getTime(),}, {merge:true});
+                clearInfo(item);
+                setItem(item);
+                    props.clear();
+            }
+            else {
+                console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
+                await collectionRef.add({name: item.name, hours: item.hours, date: item.date, 
+                    createdOn: new Date().getTime(),
+                    });
+                clearInfo(item);
+                setItem(item);
                 props.clear();
-        }
-        else {
-            console.log("Name new! name: " + item.name + ", Hours: " + item.hours + ", Date: " + item.date)
-            await collectionRef.add({name: item.name, hours: item.hours, date: item.date, 
-                createdOn: new Date().getTime(),
-                });
-            clearInfo(item);
-            setItem(item);
-            props.clear();
+            }
         }
     };
     
